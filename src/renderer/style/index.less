@@ -1,4 +1,69 @@
+@import "variables.less";
+@import "theme-dark.less";
+
 body {
   margin: 0;
   padding: 0;
+  background-color: @body-background;
+  box-sizing: border-box;
+  * {
+    box-sizing: inherit;
+  }
+}
+// commons
+.text-center {
+  text-align: center;
+}
+
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .main {
+    flex: 1;
+    display: flex;
+  }
+}
+
+.sidebar {
+  border-right: 1px solid @border-color;
+  border-bottom: 1px solid @border-color;
+  background-color: @sidebar-background;
+  width: @sidebar-width;
+}
+
+.editor {
+  position: relative;
+  border-bottom: 1px solid @border-color;
+  flex: 1;
+
+  .placeholder {
+    position: absolute;
+    width: 100%;
+    padding: 0 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: @placeholder-color;
+  }
+}
+
+.footer {
+  height: @footer-height;
+  background-color: @sidebar-background;
+  font-size: 11px;
+  line-height: 2.72em;
+  padding: 0 0.72em;
+  color: @footer-text-color;
+  font-family: '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+
+  a {
+    font-size: 1em;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

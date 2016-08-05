@@ -7,13 +7,20 @@ import './style/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Sidebar from './Components/Sidebar.js'
+import Editor from './Components/Editor.js'
+
 class App extends React.Component {
-  // render method is most important
-  // render method returns JSX template
+
   render() {
     return (
-      <div>
-        Hello
+      <div className="container">
+        <div className="main">
+          <Sidebar/>
+          <Editor/>
+        </div>
+        <div className="footer">
+        </div>
       </div>
     );
   }
