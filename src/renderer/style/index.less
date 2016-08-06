@@ -1,11 +1,15 @@
 @import "variables.less";
 @import "theme-dark.less";
 
+@import 'form.less';
+
 body {
   margin: 0;
   padding: 0;
   background-color: @body-background;
   box-sizing: border-box;
+  font-family: '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+
   * {
     box-sizing: inherit;
   }
@@ -56,7 +60,6 @@ body {
   line-height: 2.72em;
   padding: 0 0.72em;
   color: @footer-text-color;
-  font-family: '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
 
   a {
     font-size: 1em;

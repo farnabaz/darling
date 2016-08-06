@@ -1,5 +1,5 @@
 {
-  "name": "darling",
+  "name": "Darling",
   "version": "0.0.1",
   "description": "Content manager application for Hexojs",
   "main": "src/index.js",
@@ -40,7 +40,9 @@
   },
   "dependencies": {
     "electron-prebuilt": "^1.2.8",
+    "hexo": "^3.2.2",
     "react": "^15.3.0",
-    "react-dom": "^15.3.0"
+    "react-dom": "^15.3.0",
+    "react-modal": "^1.4.0"
   }
 }
