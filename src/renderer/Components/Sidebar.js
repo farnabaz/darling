@@ -1,8 +1,8 @@
 'use strict';
-// ES6 Component
-// Import React and ReactDOM
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 
 class Sidebar extends Component {
 
@@ -10,12 +10,16 @@ class Sidebar extends Component {
     super(props);
   }
 
-  render() {
-      return (
-        <div className="sidebar">
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+  }
 
-        </div>
-      );
+  render() {
+    return (
+      <div className="sidebar">
+
+      </div>
+    );
   }
 }
 

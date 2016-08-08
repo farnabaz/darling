@@ -1,5 +1,6 @@
-const electron = require('electron')
-const Menus = require('./main/Menus.js');
+const electron = require('electron');
+const path = require('path');
+const Menus = require('./Menus.js');
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -10,11 +11,12 @@ const BrowserWindow = electron.BrowserWindow
 let mainWindow
 
 function createWindow () {
+  var resourcePath = path.join(__dirname, '../../');
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/renderer/index.html`)
+  mainWindow.loadURL(`file://${resourcePath}/statics/index.html`)
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()

@@ -18,6 +18,20 @@ body {
 .text-center {
   text-align: center;
 }
+.flex {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0
+}
+.flex-master {
+  flex: 1;
+}
+.flex-slave {
+  width: 50%;
+}
 
 
 .container {
@@ -37,7 +51,7 @@ body {
   width: @sidebar-width;
 }
 
-.editor {
+.editors-pane {
   position: relative;
   border-bottom: 1px solid @border-color;
   flex: 1;
@@ -50,6 +64,16 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     color: @placeholder-color;
+  }
+
+  textarea {
+    background-color: @body-background;
+    border: none;
+    resize: none;
+    outline: 0;
+    color: @text-color;
+    font-size: 1em;
+    padding: 10px;
   }
 }
 

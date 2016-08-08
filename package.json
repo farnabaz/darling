@@ -2,7 +2,7 @@
   "name": "Darling",
   "version": "0.0.1",
   "description": "Content manager application for Hexojs",
-  "main": "src/index.js",
+  "main": "src/main-process/index.js",
   "scripts": {
     "start": "ENVIRONMENT=DEV ./node_modules/.bin/electron .",
     "watch": "./node_modules/.bin/webpack-dev-server --hot --inline"

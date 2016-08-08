@@ -1,8 +1,8 @@
 'use strict';
-// ES6 Component
-// Import React and ReactDOM
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 
 class Input extends Component {
 
