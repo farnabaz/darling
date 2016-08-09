@@ -2,9 +2,10 @@ import React from 'react';
 
 
 class ViewRegistery {
-  
+
   constructor() {
     this.providers = new WeakMap
+    this.elements = new WeakMap
     this.views = new WeakMap
   }
 
@@ -32,6 +33,14 @@ class ViewRegistery {
     return view;
   }
 
+  getElement(model, options) {
+    var view = this.elements.get(model)
+    if (!view) {
+      view = this.createView(model, options)
+    }
+    return view;
+  }
+
   createView(model, options) {
     var Provider = this.getViewProvider(model);
     var view = null;
@@ -40,9 +49,18 @@ class ViewRegistery {
     } else {
       options = options || {};
       options.id = model.getID && model.getID();
+      options.ref = (view) => {
+        this.views.set(model, view);
+        // register for model dispatch
+        if (typeof model.register === "function") {
+          if (typeof view.handleModelEvents === "function") {
+              model.register(view.handleModelEvents.bind(view));
+          }
+        }
+      }
       view = React.createElement(Provider, options);
     }
-    this.views.set(model, view);
+    this.elements.set(model, view);
     return view;
   }
 }

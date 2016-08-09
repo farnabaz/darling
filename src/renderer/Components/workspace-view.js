@@ -39,22 +39,21 @@ class WorkspaceView extends React.Component {
     }
   }
 
-  createPost() {
+  showModal(role) {
     this.setState({
-      showModal: true
+      showModal: true,
+      modalRole: role
     })
   }
 
-  handleModalOpen() {
-    ReactDOM.findDOMNode(this.refs.createPostName).focus();
-  }
 
   /**
    * hide modal
    */
   closeModal() {
     this.setState({
-      showModal: false
+      showModal: false,
+      modalRole: null
     })
   }
 
@@ -76,33 +75,88 @@ class WorkspaceView extends React.Component {
 
   }
 
+  handleModelEvents(name) {
+    switch (name) {
+      case 'new-post':
+        this.showModal('new-post');
+        break;
+      case 'busy':
+        this.showModal('loading');
+        break;
+      case 'free':
+        this.closeModal();
+        break;
+      case 'update':
+        this.forceUpdate()
+        break;
+      default:
+
+    }
+  }
+
+  handleModalOpen() {
+    switch (this.state.modalRole) {
+      case 'new-post':
+        ReactDOM.findDOMNode(this.refs.createPostName).focus();
+        break;
+      case 'loading':
+        break;
+      default:
+    }
+  }
+
+  renderModalContent() {
+    switch (this.state.modalRole) {
+      case 'new-post':
+        return (
+          <div>
+          <label>Enter name for new post</label>
+          <Input ref="createPostName" onSubmit={this.modalAction.bind(this, 'new-post')}/>
+          </div>
+        )
+      case 'loading':
+        return (
+          <div>
+            Loading...
+          </div>
+        )
+      default:
+       return null;
+    }
+  }
+
   render() {
     return (
       <div className="container">
         <div className="main">
+          <div className="panel panel-left">
           {darling.workspace.getLeftPanels()
             .map((panel, key) => {
-              return darling.views.getView(panel, {
+              return darling.views.getElement(panel, {
                 key: key
               })
           })}
+          </div>
           <div className="editors-pane">
             {darling.workspace.getTextEditors()
               .map((editor, key) => {
-              return darling.views.getView(editor, {
+              return darling.views.getElement(editor, {
                 key: key
               })
             })}
           </div>
         </div>
         <div className="footer">
+        <a onClick={this.showModal.bind(this, 'new-post')}>
+          dd
+        </a>
+
         </div>
         <Modal isOpen={this.state.showModal}
           style={modalStyles}
           onAfterOpen={this.handleModalOpen.bind(this)}
           onRequestClose={this.closeModal.bind(this)}>
-          <label>Enter name for new post</label>
-          <Input ref="createPostName" onSubmit={this.modalAction.bind(this, 'new-post')}/>
+          {this.renderModalContent()}
         </Modal>
       </div>
     );

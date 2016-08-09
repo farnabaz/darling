@@ -4,8 +4,17 @@ import TextEditorView from './Components/text-editor-view.js'
 
 
 class TextEditor extends Model {
-  constructor() {
+  constructor(path, data) {
     super()
+    this._data = {
+      path: path,
+      post: data
+    };
+
+  }
+
+  getPath() {
+    return this._data.path;
   }
 
   getText() {

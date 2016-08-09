@@ -1,3 +1,5 @@
+import {Dispatcher} from 'flux'
+
 var instanceID = 1;
 function generateID() {
   var id = instanceID;
@@ -8,8 +10,9 @@ function generateID() {
  * Model class
  * - models have window-wide unique identifier
  */
-class Model {
+class Model extends Dispatcher {
   constructor() {
+    super()
     this._ID = generateID()
   }
 

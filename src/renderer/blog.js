@@ -7,7 +7,6 @@ import Path from 'path'
 class Blog {
 
   constructor() {
-
   }
 
   /**
@@ -34,22 +33,22 @@ class Blog {
    * @param  {Object} params        Hexo initialize params
    * @param  {function} readyCallback callback called when blog were ready
    */
-  load(root, params, callback) {
+  load(root, callback) {
     this.readPathInfo(root, (err, info) => {
       if (err) {
-        callback(err);
+        callback && callback(err);
       }
-      this.hexo = new Hexo(root, params);
+      this.hexo = new Hexo(root, {});
       this.hexo.init().then(() => {
         this.hexo.load().then(() => {
-          callback(null);
+          callback && callback(null);
         })
         .error((err) => {
-          callback(err)
+          callback && callback(err)
         })
       })
       .error((err) => {
-        callback(err)
+        callback && callback(err)
       })
     })
   }

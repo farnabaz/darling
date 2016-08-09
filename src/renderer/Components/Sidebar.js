@@ -8,6 +8,9 @@ class Sidebar extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      posts: []
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -16,8 +19,18 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="sidebar">
-
+      <div className="sidebar flex">
+        <ul className="flex-master">
+        {this.state.posts.map(function(post, i){
+          return (
+            <li key={i}>
+              <span className="title">
+                {post.title}
+              </span>
+            </li>
+          )
+        })}
+        </ul>
       </div>
     );
   }

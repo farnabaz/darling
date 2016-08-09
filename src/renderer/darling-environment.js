@@ -46,7 +46,7 @@ class DarlingEnvironment {
 window.darling = new DarlingEnvironment();
 
 // initialize view
-UI = ReactDOM.render( ViewRegistery.getView(darling.workspace) ,
+window.UI = ReactDOM.render( ViewRegistery.getView(darling.workspace) ,
   document.getElementById('content'))
 
 export default darling

@@ -9,6 +9,7 @@ body {
   background-color: @body-background;
   box-sizing: border-box;
   font-family: '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+  color: @text-color;
 
   * {
     box-sizing: inherit;
@@ -34,6 +35,16 @@ body {
 }
 
 
+
+// panels
+.panel {
+  position: relative;
+}
+.panel-left {
+  width: @sidebar-width;
+}
+
+
 .container {
   height: 100vh;
   display: flex;
@@ -48,7 +59,27 @@ body {
   border-right: 1px solid @border-color;
   border-bottom: 1px solid @border-color;
   background-color: @sidebar-background;
-  width: @sidebar-width;
+  padding: 5px;
+  overflow: scroll;
+
+  ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+  }
+  li {
+    font-size: 0.9em;
+    line-height: 2em;
+
+    &.active {
+      background-color: #31363F
+    }
+    .title {
+      // white-space: pre;
+      display: block;
+    }
+  }
 }
 
 .editors-pane {

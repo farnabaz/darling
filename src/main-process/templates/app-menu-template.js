@@ -33,8 +33,7 @@ var template = [
               return;
             }
             fileName = fileNames[0];
-            var isDirectory = fs.lstatSync(fileName).isDirectory()
-            return focusedWindow.webContents.send("open", isDirectory, fileName);
+            return focusedWindow.webContents.send("open",fileName);
           });
         }
       }, {
