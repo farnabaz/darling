@@ -25,7 +25,8 @@ class Sidebar extends Component {
   render() {
     return (
       <div className="sidebar flex">
-        <ul className="flex-master">
+        <div className="panel-scroller">
+        <ul className="flex-master list">
         {darling.blog.posts().map(function(post, i){
           return (
             <li key={i} onClick={() => {
@@ -38,6 +39,7 @@ class Sidebar extends Component {
           )
         })}
         </ul>
+        </div>
       </div>
     );
   }

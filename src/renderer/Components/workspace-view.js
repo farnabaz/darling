@@ -128,9 +128,9 @@ class WorkspaceView extends View {
 
   render() {
     return (
-      <div className="container">
-        <div className="main">
-          <div className="panel panel-left">
+      <div className="workspace">
+        <div className="flex horizontal">
+          <div className="panel-container">
           {darling.workspace.getLeftPanels()
             .map((panel, key) => {
               return darling.views.getElement(panel, {
@@ -138,8 +138,8 @@ class WorkspaceView extends View {
               })
           })}
           </div>
-          <div className="flex-master flex-horizontal">
-            <div className="topbar">
+          <div className="flex vertical">
+            <div className="editor-tabs">
             {darling.workspace.getTextEditors()
               .map((editor, key) => {
               return (
@@ -157,7 +157,7 @@ class WorkspaceView extends View {
               )
             })}
             </div>
-            <div className="editors-pane">
+            <div className="editor-container">
               {darling.workspace.getTextEditors()
                 .map((editor, key) => {
                 return darling.views.getElement(editor, {

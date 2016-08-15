@@ -91,6 +91,15 @@ var template = [
     label: 'View',
     submenu: [
       {
+        label: 'Toggle Sidebar',
+        accelerator: "CmdOrCtrl+\\",
+        click: function(item, focusedWindow) {
+          if (focusedWindow) {
+            return focusedWindow.webContents.send("toggle-sidebar");
+          }
+        }
+      },
+      {
         label: 'Toggle Full Screen',
         accelerator: (function() {
           if (process.platform === 'darwin') {

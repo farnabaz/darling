@@ -7,7 +7,7 @@ class TextEditorView extends View {
 
   static get defaultProps() {
     return {
-      preview: false
+      preview: true
     }
   }
 
@@ -41,7 +41,7 @@ class TextEditorView extends View {
 
   renderPreview() {
     return (
-      <div className="flex-slave">
+      <div className="panel-container">
 
       </div>
     )
@@ -50,7 +50,7 @@ class TextEditorView extends View {
   render() {
     return (
       <div ref={"v_" + this.props.id} className={this.className()}>
-        <textarea ref={"te_" + this.props.id} className="flex-master">
+        <textarea ref={"te_" + this.props.id} className="flex">
 
         </textarea>
         {this.props.preview ? this.renderPreview.bind(this) : null}

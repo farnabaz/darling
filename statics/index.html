@@ -3,13 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <title>Darling</title>
-  </head>
-  <body>
-
-    <div id="content">
-
-    </div>
-
     <script>
       var bundlePath = './build/bundle.js';
       if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
@@ -19,5 +12,8 @@
       bundleScriptEl.src = bundlePath;
       document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
     </script>
+  </head>
+  <body>
+    <div id="app-container"></div>
   </body>
 </html>

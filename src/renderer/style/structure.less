@@ -1,0 +1,31 @@
+#app-container {
+  height: 100%;
+}
+.workspace {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.flex {
+  display: flex;
+  flex: 1;
+
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &.vertical {
+    flex-direction: column;
+  }
+}
+
+.panel-container {
+  display: flex;
+  -webkit-user-select: none;
+}
+.panel-scroller {
+  overflow: scroll;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}

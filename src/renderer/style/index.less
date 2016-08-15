@@ -1,8 +1,9 @@
 @import "variables.less";
+@import "structure.less";
 @import "theme-dark.less";
 
 @import 'form.less';
-@import 'tabs.less';
+@import 'editors.less';
 
 body {
   margin: 0;
@@ -11,6 +12,9 @@ body {
   box-sizing: border-box;
   font-family: '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
   color: @text-color;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 
   * {
     box-sizing: inherit;
@@ -20,51 +24,12 @@ body {
 .text-center {
   text-align: center;
 }
-.flex {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0
-}
-.flex-master {
-  flex: 1;
-}
-.flex-slave {
-  width: 50%;
-}
-.flex-horizontal {
-  display: flex;
-  flex-direction: column;
-}
-
-
-
-// panels
-.panel {
-  position: relative;
-}
-.panel-left {
-  width: @sidebar-width;
-}
-
-
-.container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  .main {
-    flex: 1;
-    display: flex;
-  }
-}
 
 .sidebar {
   border-right: 1px solid @border-color;
   border-bottom: 1px solid @border-color;
   background-color: @sidebar-background;
-  overflow: scroll;
+  width: @sidebar-width;
 
   ul, li {
     list-style: none;
@@ -87,38 +52,7 @@ body {
   }
 }
 
-.editors-pane {
-  position: relative;
-  border-bottom: 1px solid @border-color;
-  flex: 1;
 
-  .editor {
-
-    &.deactive {
-      display: none;
-    }
-  }
-
-  .placeholder {
-    position: absolute;
-    width: 100%;
-    padding: 0 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: @placeholder-color;
-  }
-
-  textarea {
-    background-color: @body-background;
-    border: none;
-    resize: none;
-    outline: 0;
-    color: @text-color;
-    font-size: 1em;
-    padding: 10px;
-  }
-}
 
 .footer {
   height: @footer-height;
