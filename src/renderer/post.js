@@ -30,8 +30,7 @@ class Post {
     var content = HFM.stringify(this.meta, {
       prefixSeparator: true
     });
-    console.log(content);
-    content += "\n" + this.content;
+    content += this.content;
     fs.writeFile(this.full_path, content, (err) => {
       console.log(err);
     })

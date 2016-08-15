@@ -15,17 +15,35 @@ class Internal {
     this.editors = [];
   }
 
-  open(workspace, path) {
-    if (path == void 0) {
-      this.pushEditor(new TextEditor())
-    } else if (path instanceof Post) {
-      this.pushEditor(new TextEditor(path))
-    } else if (typeof path === "string") {
+  findTextEditorForPath(path) {
+    for (var i in this.editors) {
+      if (this.editors[i].getFullPath()
+          && this.editors[i].getFullPath() == path) {
+        return this.editors[i];
+      }
+    }
+    return null;
+  }
+
+
+  openPost(post) {
+    var editor = this.findTextEditorForPath(post.full_path);
+    if (editor) {
+      darling.workspace.switch(editor);
+    } else {
+      this.pushEditor(new TextEditor(post))
+    }
+  }
+  openPath(path) {
+    var editor = this.findTextEditorForPath(path);
+    if (editor) {
+      darling.workspace.switch(editor);
+    } else {
       var isDirectory = fs.lstatSync(path).isDirectory()
       if (isDirectory) {
-        workspace.dispatch('blog-will-load');
+        darling.workspace.dispatch('blog-will-load');
         darling.blog.load(path, () => {
-          workspace.dispatch('blog-did-load')
+          darling.workspace.dispatch('blog-did-load')
         })
         return;
       } else {
@@ -35,6 +53,16 @@ class Internal {
           }
         })
       }
+    }
+  }
+  open(workspace, path) {
+    if (path == null) {
+      return this.pushEditor(new TextEditor())
+    }
+    if (path instanceof Post) {
+      this.openPost(path);
+    } else if (typeof path === "string") {
+      this.openPath(path);
     }
 
   }
