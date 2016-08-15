@@ -40,13 +40,19 @@ var template = [
         label: 'Save',
         accelerator: 'CmdOrCtrl+S',
         click: function(item, focusedWindow) {
-          return focusedWindow.webContents.send("save-file");
+          return focusedWindow.webContents.send("save-tab");
         }
       }, {
         type: 'separator'
       }, {
-        label: 'Close',
+        label: 'Close Tab',
         accelerator: 'CmdOrCtrl+W',
+        click: function(item, focusedWindow) {
+          return focusedWindow.webContents.send("close-tab");
+        }
+      }, {
+        label: 'Close Window',
+        accelerator: 'CmdOrCtrl+Shift+W',
         role: 'close'
       }
     ]
