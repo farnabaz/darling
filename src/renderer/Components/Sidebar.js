@@ -11,19 +11,26 @@ class Sidebar extends Component {
     this.state = {
       posts: []
     };
-  }
+    darling.workspace.register((name) => {
+      switch (name) {
+        case 'blog-did-load':
+          this.forceUpdate();
+          break;
+        default:
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+      }
+    })
   }
 
   render() {
     return (
       <div className="sidebar flex">
         <ul className="flex-master">
-        {this.state.posts.map(function(post, i){
+        {darling.blog.posts().map(function(post, i){
           return (
-            <li key={i}>
+            <li key={i} onClick={() => {
+              darling.workspace.open(post);
+            }}>
               <span className="title">
                 {post.title}
               </span>

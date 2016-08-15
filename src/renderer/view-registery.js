@@ -5,7 +5,6 @@ class ViewRegistery {
 
   constructor() {
     this.providers = new WeakMap
-    this.elements = new WeakMap
     this.views = new WeakMap
   }
 
@@ -34,11 +33,7 @@ class ViewRegistery {
   }
 
   getElement(model, options) {
-    var view = this.elements.get(model)
-    if (!view) {
-      view = this.createView(model, options)
-    }
-    return view;
+    return this.createView(model, options);
   }
 
   createView(model, options) {
@@ -48,20 +43,21 @@ class ViewRegistery {
       view =  React.DOM.noscript()
     } else {
       options = options || {};
+      options.model = model;
       options.id = model.getID && model.getID();
       options.ref = (view) => {
         this.views.set(model, view);
-        // register for model dispatch
-        if (typeof model.register === "function") {
-          if (typeof view.handleModelEvents === "function") {
-              model.register(view.handleModelEvents.bind(view));
-          }
-        }
       }
       view = React.createElement(Provider, options);
     }
-    this.elements.set(model, view);
     return view;
+  }
+
+  /**
+   * invalidate and remove models view from map
+   */
+  invalidate(model) {
+    this.views.delete(model);
   }
 }
 export default new ViewRegistery()

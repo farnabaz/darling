@@ -2,6 +2,7 @@
 @import "theme-dark.less";
 
 @import 'form.less';
+@import 'tabs.less';
 
 body {
   margin: 0;
@@ -33,6 +34,10 @@ body {
 .flex-slave {
   width: 50%;
 }
+.flex-horizontal {
+  display: flex;
+  flex-direction: column;
+}
 
 
 
@@ -59,7 +64,6 @@ body {
   border-right: 1px solid @border-color;
   border-bottom: 1px solid @border-color;
   background-color: @sidebar-background;
-  padding: 5px;
   overflow: scroll;
 
   ul, li {
@@ -71,12 +75,13 @@ body {
   li {
     font-size: 0.9em;
     line-height: 2em;
+    padding: 0 5px;
 
     &.active {
       background-color: #31363F
     }
     .title {
-      // white-space: pre;
+      white-space: pre;
       display: block;
     }
   }
@@ -86,6 +91,13 @@ body {
   position: relative;
   border-bottom: 1px solid @border-color;
   flex: 1;
+
+  .editor {
+
+    &.deactive {
+      display: none;
+    }
+  }
 
   .placeholder {
     position: absolute;

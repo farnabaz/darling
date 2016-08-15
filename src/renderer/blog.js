@@ -1,12 +1,20 @@
-'use strict';
-import Hexo from 'hexo';
+import YAML from 'yamljs';
+import Path from 'path';
 import fs from 'fs';
-import Path from 'path'
+import Post from './post.js'
 
 
 class Blog {
-
   constructor() {
+    this.isValidHexoPath = false;
+
+    this.config = {}
+    this.content = {
+      posts: []
+    }
+    this._ = {
+      loaded: false
+    }
   }
 
   /**
@@ -15,7 +23,7 @@ class Blog {
    */
   getTitle() {
     if (this.isLoaded()) {
-      return this.hexo.config.title
+      return this.config.title
     } else {
       return null;
     }
@@ -25,8 +33,20 @@ class Blog {
    * @return {Boolean}
    */
   isLoaded() {
-    return !!this.hexo;
+    return !!this._.loaded;
   }
+
+  isValidBlog() {
+    return this.isValidHexoPath;
+  }
+
+  posts() {
+    return this.content.posts;
+  }
+
+
+
+
   /**
    * load blog
    * @param  {String} root          blog root path
@@ -38,37 +58,67 @@ class Blog {
       if (err) {
         callback && callback(err);
       }
-      this.hexo = new Hexo(root, {});
-      this.hexo.init().then(() => {
-        this.hexo.load().then(() => {
-          callback && callback(null);
-        })
-        .error((err) => {
-          callback && callback(err)
-        })
-      })
-      .error((err) => {
-        callback && callback(err)
-      })
+      this.path = root;
+      this.configPath = Path.join(this.path, '_config.yml')
+      this.isValidHexoPath = true;
+
+      YAML.load(this.configPath, (result) => {
+        this.config = result;
+        if (!this.config.source_dir) {
+          this.config.source_dir = "source";
+        }
+        this.loadPosts(callback)
+      });
     })
   }
 
-  getPosts() {
-    if (this.isLoaded()) {
-      var Post = this.hexo.model('Post');
-      return Post.sort({published: -1, date: -1})
-        .toArray();
-    } else {
-      return null;
-    }
+  loadPosts(callback) {
+    var folder = Path.join(this.path, this.config.source_dir, '_posts')
+    fs.readdir(folder, (err, files) => {
+      if (err) {
+        return callback(err);
+      }
+      var total = files.length,
+          loaded= 0;
+
+      for (var i in files) {
+        var path = Path.join(folder, files[i]);
+        if (files[i].match(/.*\.md$/)) {
+          this.loadPost(path, (err, post) => {
+            loaded +=1
+            if (err) {
+
+            };
+            this.content.posts.push(post)
+            if (loaded == total) {
+              callback(null);
+            }
+          });
+        } else {
+          loaded += 1;
+        }
+      }
+    })
   }
+
+  loadPost(path, callback) {
+    fs.readFile(path, {encoding: 'utf8'}, (err, data) => {
+      if (err) {
+        callback(err, null);
+        return;
+      }
+      callback(null, new Post(path, data))
+    });
+  }
+
+
 
   /**
    * read package.json file and detect blog information if exists
    * @param  {String}   path     blog path
    * @param  {Function} callback callback function
    */
-  readPathInfo(path, callback) {
+   readPathInfo(path, callback) {
     fs.readFile(Path.join(path, 'package.json'), {
       encoding: 'UTF-8'
     }, (err, data, x) => {

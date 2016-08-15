@@ -16,6 +16,10 @@ class Model extends Dispatcher {
     this._ID = generateID()
   }
 
+  viewDidLoad() {
+
+  }
+
   /**
    * unique identifier
    * @return {Integer} id models unique identifier

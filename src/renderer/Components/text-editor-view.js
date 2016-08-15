@@ -1,8 +1,9 @@
-import React from 'react';
+import View from './view.js';
 import ReactDOM from 'react-dom';
+import React from 'react';
 
 
-class TextEditorView extends React.Component {
+class TextEditorView extends View {
 
   static get defaultProps() {
     return {
@@ -12,14 +13,30 @@ class TextEditorView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-    this.state.id = this.props.id;
+  }
 
+  handleModelEvents(data) {
+    switch (data.name) {
+      case 'content':
+      ReactDOM.findDOMNode(this.refs['te_' + this.props.id])
+        .value = data.content;
+        break;
+      default:
+
+    }
   }
 
   getContent() {
-    return ReactDOM.findDOMNode(this.refs['te_' + this.state.id])
+    return ReactDOM.findDOMNode(this.refs['te_' + this.props.id])
       .value
+  }
+
+  className() {
+    if (this.props.active) {
+      return "editor flex active";
+    } else {
+      return "editor flex deactive"
+    }
   }
 
   renderPreview() {
@@ -32,8 +49,8 @@ class TextEditorView extends React.Component {
 
   render() {
     return (
-      <div ref={"v_" + this.state.id} className="editor flex">
-        <textarea ref={"te_" + this.state.id} className="flex-master">
+      <div ref={"v_" + this.props.id} className={this.className()}>
+        <textarea ref={"te_" + this.props.id} className="flex-master">
 
         </textarea>
         {this.props.preview ? this.renderPreview.bind(this) : null}

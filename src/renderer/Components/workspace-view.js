@@ -1,10 +1,9 @@
 'use strict';
 
-// ES6 Component
-// Import React and ReactDOM
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal'
+import View from './view.js'
 
 import Input from './Input.js'
 
@@ -30,7 +29,7 @@ const modalStyles = {
   }
 };
 
-class WorkspaceView extends React.Component {
+class WorkspaceView extends View {
 
   constructor(props) {
     super(props);
@@ -81,9 +80,11 @@ class WorkspaceView extends React.Component {
         this.showModal('new-post');
         break;
       case 'busy':
+      case 'blog-will-load':
         this.showModal('loading');
         break;
       case 'free':
+      case 'blog-did-load':
         this.closeModal();
         break;
       case 'update':
@@ -137,13 +138,34 @@ class WorkspaceView extends React.Component {
               })
           })}
           </div>
-          <div className="editors-pane">
+          <div className="flex-master flex-horizontal">
+            <div className="topbar">
             {darling.workspace.getTextEditors()
               .map((editor, key) => {
-              return darling.views.getElement(editor, {
-                key: key
-              })
+              return (
+                <div key={editor.getID()} className={"tab " + (editor.isActive() ? 'active' : '')}
+                  onClick={this.props.model.switch.bind(this.props.model, editor)}>
+                  <span>{editor.getTitle()}</span>
+                  <div className="close-icon"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      editor.close()
+                    }}>
+                  </div>
+                </div>
+              )
             })}
+            </div>
+            <div className="editors-pane">
+              {darling.workspace.getTextEditors()
+                .map((editor, key) => {
+                return darling.views.getElement(editor, {
+                  key: editor.getID(),
+                  active: editor.isActive()
+                })
+              })}
+            </div>
           </div>
         </div>
         <div className="footer">

@@ -41,9 +41,10 @@
   },
   "dependencies": {
     "flux": "^2.1.1",
-    "hexo": "^3.2.2",
+    "hexo-front-matter": "^0.2.3",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
-    "react-modal": "^1.4.0"
+    "react-modal": "^1.4.0",
+    "yamljs": "^0.2.8"
   }
 }
